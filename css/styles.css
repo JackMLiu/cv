@@ -2,7 +2,7 @@ a {
   margin-left: 20px;
   margin-right: 20px;
   text-decoration: none;
-  color: #3AB4F2;   
+  color: #3AB4F2;
 }
 
 a:hover {
@@ -258,6 +258,12 @@ margin-right: auto;
   max-width: 150px;
   float: left;
   margin-right: 30px;
+}
+
+.cpc-img {
+  width: 100%;
+  margin-right: 80px;
+    max-width: 250px;
 }
 
 .generali-img {
