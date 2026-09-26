@@ -715,7 +715,6 @@ p {
   border-radius: var(--radius);
   background: var(--ink-2);
   border: 1px solid rgba(244, 242, 236, 0.08);
-  transition: opacity .6s var(--ease), border-color .6s var(--ease), transform .6s var(--ease), background-color .6s;
 }
 
 .stage::before {
@@ -726,32 +725,8 @@ p {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--ink);
-  border: 2px solid var(--accent);
-  transition: background-color .4s;
-}
-
-.stage.is-active,
-.stage.is-done {
-  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
-}
-
-.stage.is-active::before,
-.stage.is-done::before {
   background: var(--accent);
-}
-
-.stage.is-active {
-  background: #1B1D16;
-  transform: translateY(-6px);
-}
-
-.stage.is-idle {
-  opacity: 0.35;
-}
-
-.stage.is-idle::before {
-  border-color: rgba(244, 242, 236, 0.35);
+  border: 2px solid var(--accent);
 }
 
 .stage__num {

@@ -99,22 +99,21 @@ test.describe('resilience', () => {
     await expectEachSectionSettlesVisible(page, { order: 'down' });
   });
 
-  test('pinned sections keep their content on screen all the way through the pin', async ({ page }) => {
+  test('no section holds the scroll: the page is as long as its content', async ({ page }) => {
     await page.goto('./');
-    const pins = await page.evaluate(() =>
-      window.ScrollTrigger.getAll().filter((t) => t.pin).map((t) => ({ id: t.trigger.id, start: t.start, end: t.end })));
-    expect(pins.length).toBeGreaterThanOrEqual(4);
-    for (const pin of pins) {
-      for (const at of [0.3, 0.6, 0.95]) {
-        await page.evaluate((y) => window.scrollTo(0, y), pin.start + (pin.end - pin.start) * at);
-        await page.waitForTimeout(1500);
-        const hidden = await page.evaluate((id) =>
-          [...document.querySelectorAll(`#${id} [data-reveal], #${id} h2, #${id} [data-stage]`)]
-            .filter((el) => parseFloat(getComputedStyle(el).opacity) < 0.3)
-            .map((el) => el.outerHTML.slice(0, 60)), pin.id);
-        expect(hidden, `hidden in #${pin.id} at ${at * 100}% of its pin`).toEqual([]);
-      }
-    }
+    await page.waitForTimeout(500);
+    const { pins, extra } = await page.evaluate(() => ({
+      pins: window.ScrollTrigger.getAll().filter((t) => t.pin).length,
+      extra: document.querySelectorAll('.pin-spacer').length,
+    }));
+    expect(pins).toBe(0);
+    expect(extra).toBe(0);
+  });
+
+  test('case study charts animate to their final state once scrolled into view', async ({ page }) => {
+    await page.goto('./');
+    await goToSection(page, 'scene-forecast');
+    await expect(page.locator('#scene-forecast [data-scene-text][data-count]')).toHaveText('~85%', { timeout: 4000 });
   });
 
   test('animations replay when you come back to a section', async ({ page }) => {
@@ -134,18 +133,25 @@ test.describe('resilience', () => {
     await expect(counter).toHaveText('95%');
   });
 
-  test('signature scene charts end exactly at their authored final state', async ({ page, request }) => {
+  test('each case study chart ends exactly at its authored final state', async ({ page, request }) => {
     const html = await (await request.get('./')).text();
     await page.goto('./');
     await scrollThrough(page);
-    const mismatches = await page.evaluate((source) => {
-      const authored = new DOMParser().parseFromString(source, 'text/html');
-      const shapes = (doc) => [...doc.querySelectorAll('[data-scene] svg [d], [data-scene] svg rect')]
-        .map((el) => el.getAttribute('d') ?? `${el.getAttribute('y')}/${el.getAttribute('height')}/${el.getAttribute('width')}`);
-      const want = shapes(authored), got = shapes(document);
-      return want.length === 0 ? ['no scene shapes found'] : want.filter((w, i) => w !== got[i]);
-    }, html);
-    expect(mismatches).toEqual([]);
+    // Charts reset once off screen (ready to replay), so check each one while it is in view.
+    const ids = await page.evaluate(() => [...document.querySelectorAll('[data-scene]')].map((s) => s.id));
+    expect(ids.length).toBe(3);
+    for (const id of ids) {
+      await goToSection(page, id);
+      await page.waitForTimeout(2500);
+      const mismatches = await page.evaluate(([source, id]) => {
+        const authored = new DOMParser().parseFromString(source, 'text/html');
+        const shapes = (doc) => [...doc.querySelectorAll(`#${id} svg [d], #${id} svg rect`)]
+          .map((el) => el.getAttribute('d') ?? `${el.getAttribute('y')}/${el.getAttribute('height')}/${el.getAttribute('width')}`);
+        const want = shapes(authored), got = shapes(document);
+        return want.length === 0 ? ['no chart shapes found'] : want.filter((w, i) => w !== got[i]);
+      }, [html, id]);
+      expect(mismatches, `#${id}`).toEqual([]);
+    }
   });
 
   test.describe('on a tablet or small laptop', () => {

@@ -16,15 +16,10 @@
 
   var gsap = window.gsap;
   var ScrollTrigger = window.ScrollTrigger;
-  // One breakpoint for every pinned scene.
-  var PIN_QUERY = '(min-width: 1001px)';
-  var NARROW_QUERY = '(max-width: 1000px)';
   gsap.registerPlugin(ScrollTrigger);
   root.classList.add('motion-ready');
 
   initSmoothScroll();
-  // Pinned scenes first: they add scroll length, and every trigger created after them
-  // then measures its position on the final, longer page.
   initMachine();
   initForecastScene();
   initReportingScene();
@@ -79,7 +74,7 @@
         values[i].style.opacity = gsap.utils.clamp(0, 1, (barProgress - 0.5) * 2);
         if (connectors[i - 1]) connectors[i - 1].style.opacity = barProgress > 0 ? 1 : 0;
       });
-    }, { length: 1.8 });
+    });
   }
 
   function initReportingScene() {
@@ -137,33 +132,17 @@
     });
   }
 
-  // Shared signature-scene pattern: the SVG is authored in its final state. On wide screens the
-  // section pins and scroll scrubs `render(progress)` from 0 to 1; on narrow screens it plays
-  // each time it comes into view. Reaching 1 restores the authored markup exactly rather than trusting the maths.
-  function scene(section, render, opts) {
+  // Shared case-study pattern: the SVG is authored in its final state. The chart plays
+  // `render(progress)` from 0 to 1 each time it comes into view; the page never holds the
+  // scroll. Reaching 1 restores the authored markup exactly rather than trusting the maths.
+  function scene(section, render) {
     var restore = snapshot(section);
-    gsap.matchMedia().add({ wide: PIN_QUERY, narrow: NARROW_QUERY }, function (ctx) {
-      var state = { progress: 0 };
-      var apply = function () { if (state.progress >= 1) restore(); else render(state.progress); };
-      apply();
-      if (ctx.conditions.wide) {
-        gsap.to(state, {
-          progress: 1, ease: 'none', onUpdate: apply,
-          scrollTrigger: {
-            trigger: section,
-            pin: section.querySelector('.scene__pin'),
-            start: 'top top',
-            end: '+=' + window.innerHeight * ((opts && opts.length) || 1.6),
-            scrub: 0.6
-          }
-        });
-      } else {
-        replay(section.querySelector('.scene__figure'), gsap.to(state, {
-          progress: 1, duration: 2.2, ease: 'power2.inOut', onUpdate: apply, paused: true
-        }), 'top 75%');
-      }
-      return restore;
-    });
+    var state = { progress: 0 };
+    var apply = function () { if (state.progress >= 1) restore(); else render(state.progress); };
+    apply();
+    replay(section.querySelector('.scene__figure'), gsap.to(state, {
+      progress: 1, duration: 2.2, ease: 'power2.inOut', onUpdate: apply, paused: true
+    }), 'top 75%');
   }
 
   // Records the authored geometry, inline opacity and animated text of a scene; returns a restorer.
@@ -188,45 +167,19 @@
     };
   }
 
-  // Desktop: pin the section and light up one stage at a time as the pipeline fills.
-  // Smaller screens keep the plain stacked layout and reveal the stages in turn.
+  // The four stages stagger in as the pipeline line draws across (the line shows on wide screens).
+  // Explicit end values (not from()): a from() tween reads its end state from the current style,
+  // which can already be a hidden start state and leave the stages invisible.
   function initMachine() {
     var section = document.querySelector('.machine');
     if (!section) return;
     var stages = gsap.utils.toArray('[data-stage]', section);
-
-    gsap.matchMedia().add({ wide: PIN_QUERY, narrow: NARROW_QUERY }, function (ctx) {
-      if (ctx.conditions.narrow) {
-        // Explicit end values (not from()): a from() tween reads its end state from the current
-        // style, which can already be a hidden start state and leave the stages invisible.
-        replay(section.querySelector('.machine__stages'), gsap.fromTo(stages, { opacity: 0, y: 40 }, {
-          opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.12, clearProps: 'opacity,transform', paused: true
-        }));
-        return;
-      }
-      var setStage = function (progress) {
-        var active = Math.min(stages.length - 1, Math.floor(progress * stages.length * 0.999));
-        stages.forEach(function (stage, i) {
-          stage.classList.toggle('is-active', i === active && progress < 1);
-          stage.classList.toggle('is-done', i < active || progress >= 1);
-          stage.classList.toggle('is-idle', i > active);
-        });
-        section.style.setProperty('--machine-progress', Math.min(1, (active + 1) / stages.length * Math.min(1, progress * 1.15 + 0.1)).toFixed(3));
-      };
-      setStage(0);
-      ScrollTrigger.create({
-        trigger: section,
-        pin: section.querySelector('.machine__pin'),
-        start: 'top top',
-        end: '+=' + window.innerHeight * 2.2,
-        onUpdate: function (self) { setStage(self.progress); },
-        onLeave: function () { setStage(1); }
-      });
-      return function () {
-        stages.forEach(function (s) { s.classList.remove('is-active', 'is-done', 'is-idle'); });
-        section.style.removeProperty('--machine-progress');
-      };
-    });
+    var tl = gsap.timeline({ paused: true })
+      .fromTo(section, { '--machine-progress': 0 }, { '--machine-progress': 1, duration: 1.6, ease: 'power2.inOut' }, 0)
+      .fromTo(stages, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.25, clearProps: 'opacity,transform'
+      }, 0.1);
+    replay(section.querySelector('.machine__stages'), tl);
   }
 
   // Fades and lifts [data-reveal] elements as they enter the viewport, from either direction.
@@ -244,8 +197,6 @@
   // Plays a paused animation whenever its trigger comes into view (scrolling down or back up)
   // and rewinds it once the trigger is fully off screen, so every visit replays it.
   function replay(trigger, animation, start) {
-    var pinnedSection = pinnedSectionOf(trigger);
-    if (pinnedSection) { trigger = pinnedSection; start = 'top 85%'; }
     ScrollTrigger.create({
       trigger: trigger,
       start: start || 'top 85%',
@@ -257,17 +208,7 @@
   }
 
   function whenOffScreen(el, reset) {
-    ScrollTrigger.create({
-      trigger: pinnedSectionOf(el) || el,
-      start: 'top bottom', end: 'bottom top', onLeave: reset, onLeaveBack: reset
-    });
-  }
-
-  // Content inside a pinned scene stays on screen for the whole pin. Its own position ignores
-  // that, so it would reset while still visible; the section's height includes the pin's
-  // scroll length, so section-level triggers fire at the right moments.
-  function pinnedSectionOf(el) {
-    return el.closest('[data-scene], .machine');
+    ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', onLeave: reset, onLeaveBack: reset });
   }
 
   // Scene readouts are driven by their scene's scroll progress, so they're excluded here.
