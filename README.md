@@ -23,6 +23,7 @@ Charts use IBCS notation: actual = solid, plan = outlined grey, green/red only f
 
 ## Editing
 
+- **After changing CSS or JS:** bump the `?v=` number on their links in `index.html` so browsers fetch the new files.
 - **Change text or numbers:** edit `index.html`. Counters take their target from `data-count` (plus `data-prefix`/`data-suffix`), so keep that in sync with the visible text.
 - **Change the resume:** edit `resume.html`, then run `npm run resume` to regenerate the PDF.
 - **Replace photos:** put the source in `images/` and run `npm run assets` (writes optimized files to `images/web/`).

@@ -6,3 +6,4 @@ test-results/
 playwright-report/
 # Local-only list of sensitive terms the disclosure guard checks for
 tests/disclosure.local.json
+.claude/

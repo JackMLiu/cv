@@ -244,6 +244,8 @@
   // Plays a paused animation whenever its trigger comes into view (scrolling down or back up)
   // and rewinds it once the trigger is fully off screen, so every visit replays it.
   function replay(trigger, animation, start) {
+    var pinnedSection = pinnedSectionOf(trigger);
+    if (pinnedSection) { trigger = pinnedSection; start = 'top 85%'; }
     ScrollTrigger.create({
       trigger: trigger,
       start: start || 'top 85%',
@@ -255,7 +257,17 @@
   }
 
   function whenOffScreen(el, reset) {
-    ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', onLeave: reset, onLeaveBack: reset });
+    ScrollTrigger.create({
+      trigger: pinnedSectionOf(el) || el,
+      start: 'top bottom', end: 'bottom top', onLeave: reset, onLeaveBack: reset
+    });
+  }
+
+  // Content inside a pinned scene stays on screen for the whole pin. Its own position ignores
+  // that, so it would reset while still visible; the section's height includes the pin's
+  // scroll length, so section-level triggers fire at the right moments.
+  function pinnedSectionOf(el) {
+    return el.closest('[data-scene], .machine');
   }
 
   // Scene readouts are driven by their scene's scroll progress, so they're excluded here.

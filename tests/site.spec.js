@@ -99,6 +99,24 @@ test.describe('resilience', () => {
     await expectEachSectionSettlesVisible(page, { order: 'down' });
   });
 
+  test('pinned sections keep their content on screen all the way through the pin', async ({ page }) => {
+    await page.goto('./');
+    const pins = await page.evaluate(() =>
+      window.ScrollTrigger.getAll().filter((t) => t.pin).map((t) => ({ id: t.trigger.id, start: t.start, end: t.end })));
+    expect(pins.length).toBeGreaterThanOrEqual(4);
+    for (const pin of pins) {
+      for (const at of [0.3, 0.6, 0.95]) {
+        await page.evaluate((y) => window.scrollTo(0, y), pin.start + (pin.end - pin.start) * at);
+        await page.waitForTimeout(1500);
+        const hidden = await page.evaluate((id) =>
+          [...document.querySelectorAll(`#${id} [data-reveal], #${id} h2, #${id} [data-stage]`)]
+            .filter((el) => parseFloat(getComputedStyle(el).opacity) < 0.3)
+            .map((el) => el.outerHTML.slice(0, 60)), pin.id);
+        expect(hidden, `hidden in #${pin.id} at ${at * 100}% of its pin`).toEqual([]);
+      }
+    }
+  });
+
   test('animations replay when you come back to a section', async ({ page }) => {
     await page.goto('./');
     const title = page.locator('#capabilities-title');
