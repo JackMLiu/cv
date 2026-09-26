@@ -368,7 +368,7 @@ p {
 
 .hero__title {
   margin-top: 24px;
-  font-size: clamp(3rem, 10.5vw, 9.5rem);
+  font-size: clamp(2.75rem, 8vw, 7rem);
   line-height: 0.92;
   font-weight: 800;
   letter-spacing: -0.055em;
@@ -444,6 +444,10 @@ p {
   gap: 8px;
   margin-top: 32px;
   color: rgba(244, 242, 236, 0.85);
+}
+
+.hero__focus .chip {
+  background: var(--ink);
 }
 
 .hero__focus-label {

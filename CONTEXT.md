@@ -13,11 +13,11 @@ A single quantified accomplishment from Jack's career (e.g. forecast miss cut, e
 _Avoid_: stat, metric (when meaning a career accomplishment)
 
 **Signature scene**:
-A full-screen, scroll-driven moment that turns one **Proof point** into an animated chart built from Jack's own numbers. Signature scenes are the site's visual centrepieces and stand in for decorative imagery.
+A full-screen, scroll-driven moment that turns one **Proof point** into an animated chart built from Jack's own numbers. Signature scenes are the site's visual centrepieces and stand in for decorative imagery. Labelled "Case study" on the site.
 _Avoid_: hero image, illustration
 
 **The machine**:
-Jack's way of working, shown as a four-stage pipeline: Data → Model → Forecast → Decision. Each tool Jack uses belongs to one stage. It connects the **Positioning** to his technical skills.
+Jack's way of working, shown as a four-stage pipeline: Data → Model → Forecast → Decision. Each tool Jack uses belongs to one stage. It connects the **Positioning** to his technical skills. Labelled "Approach" on the site.
 _Avoid_: tech stack, skills list
 
 **Capability**:
@@ -33,7 +33,8 @@ A private, per-application resume (.docx) kept outside the site. It is never pub
 
 **Off the clock**:
 The small personal section (Muay Thai, latte art). It humanizes the page without competing with the **Positioning**.
-_Avoid_: hobbies
+Labelled "Interests" on the site.
+_Avoid_: hobbies (as an internal term)
 
 **Recruiter**:
 The primary reader: a recruiter or hiring manager for Director-level FP&A, finance transformation, or planning & analytics roles, who scans the page in seconds.

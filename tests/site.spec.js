@@ -15,13 +15,13 @@ test.describe('disclosure guard', () => {
 // Content a Recruiter must be able to read however the page is delivered.
 const essentials = [
   '$4B',
-  'Focused on',
+  'Focus areas',
   'Finance transformation',
   '10+',
   '95%',
   '~85%',
   '200+',
-  'Hi, I’m Jack',
+  'Professional experience',
   'AI/ML & Automation',
   'Generali Global Health Services',
   'Manager, Financial Analysis',
@@ -193,7 +193,7 @@ test.describe('proof strip', () => {
   test('introduces Jack with a described photo', async ({ page }) => {
     await page.goto('./');
     const intro = page.locator('#intro');
-    await expect(intro.getByRole('heading')).toHaveText(/Hi, I’m Jack/);
+    await expect(intro.getByRole('heading')).toHaveText('About');
     await expect(intro.getByRole('img', { name: /Jack Liu/ })).toBeVisible();
   });
 });
@@ -202,7 +202,7 @@ test.describe('the machine', () => {
   test('shows the four stages, each with its tools and an outcome', async ({ page }) => {
     await page.goto('./');
     const machine = page.locator('#machine');
-    await expect(machine.getByRole('heading', { level: 2 })).toContainText('machine');
+    await expect(machine.getByRole('heading', { level: 2 })).toContainText(/from data to decision/i);
     const stages = machine.getByRole('listitem').filter({ has: page.getByRole('heading', { level: 3 }) });
     await expect(stages.getByRole('heading', { level: 3 })).toHaveText(['Data', 'Model', 'Forecast', 'Decision']);
     for (const tool of ['SQL', 'Python', 'SAP Analytics Cloud', 'Power BI']) {
@@ -331,7 +331,7 @@ test.describe('contact', () => {
   test('closes with email and LinkedIn as the only routes', async ({ page }) => {
     await page.goto('./');
     const contact = page.locator('#contact');
-    await expect(contact.getByRole('heading', { level: 2 })).toContainText(/planning, forecasting,?\s+and the machine behind them/);
+    await expect(contact.getByRole('heading', { level: 2 })).toContainText(/Get in touch/);
     await expect(contact.getByRole('link', { name: /jack\.mu\.liu@gmail\.com/ })).toHaveAttribute('href', 'mailto:jack.mu.liu@gmail.com');
     await expect(contact.getByRole('link', { name: /linkedin/i })).toHaveAttribute('href', 'https://www.linkedin.com/in/jack-liu-5069b751/');
   });
@@ -341,11 +341,11 @@ test.describe('hero', () => {
   test('makes the positioning claim with a way to act', async ({ page }) => {
     await page.goto('./');
     const hero = page.getByRole('banner');
-    await expect(hero.getByRole('heading', { level: 1 })).toHaveText(/FP&A leader\s+who builds\s+the machine/);
+    await expect(hero.getByRole('heading', { level: 1 })).toHaveText(/FP&A &\s+Analytics\s+Leader/);
     await expect(hero).toContainText('$4B');
-    await expect(hero).toContainText('Focused on');
+    await expect(hero).toContainText('Focus areas');
     await expect(hero).toContainText('Finance transformation');
-    await expect(hero.getByRole('link', { name: /email me/i })).toHaveAttribute('href', 'mailto:jack.mu.liu@gmail.com');
+    await expect(hero.getByRole('link', { name: /get in touch/i })).toHaveAttribute('href', 'mailto:jack.mu.liu@gmail.com');
     await expect(hero.getByRole('link', { name: /download resume/i })).toHaveAttribute('href', 'Jack-Liu-Resume.pdf');
   });
 });
