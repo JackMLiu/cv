@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=4">
+  <link rel="stylesheet" href="css/styles.css?v=5">
   <script>
     // Hide animated elements only when motion will actually run; a failsafe reveals them if the motion script never starts.
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -505,6 +505,21 @@
               <li><a href="images/web/latte-4.webp" data-lightbox aria-label="Latte art: swan, enlarge"><img src="images/web/latte-4-thumb.webp" width="600" height="600" loading="lazy" decoding="async" alt="Latte art: a swan poured in a white mug"></a></li>
             </ul>
           </article>
+          <article class="hobby hobby--project" data-reveal>
+            <div class="project__text">
+              <h3 class="hobby__title">Vibe coding</h3>
+              <p>Building side projects with AI coding tools. <strong>Papernils</strong> is a receipt-scanning, bill-splitting web app: photograph a receipt, Claude itemizes it, and friends claim their items from a share link without signing up.</p>
+              <ul class="project__stack" aria-label="Papernils stack">
+                <li>Next.js</li><li>React</li><li>TypeScript</li><li>Supabase</li><li>Claude API</li>
+              </ul>
+              <ul class="hobby__links">
+                <li><a href="https://papernils.com" target="_blank" rel="noopener">Visit papernils.com <span aria-hidden="true">↗</span></a></li>
+              </ul>
+            </div>
+            <a class="project__shot" href="https://papernils.com" target="_blank" rel="noopener" aria-label="Papernils home page (opens papernils.com)">
+              <img src="images/web/papernils-home.webp" width="520" height="787" loading="lazy" decoding="async" alt="Papernils home page on a phone: Snap a receipt. Split the bill.">
+            </a>
+          </article>
         </div>
       </div>
       <dialog class="lightbox" aria-label="Latte art photo">
@@ -530,7 +545,7 @@
   <footer class="footer theme-dark">
     <div class="wrap footer__inner">
       <span>© 2026 Jack Liu · Toronto</span>
-      <span>Hand-built with HTML, CSS &amp; GSAP. Charts follow IBCS notation.</span>
+      <span>Built with HTML, CSS &amp; GSAP. Charts follow IBCS notation.</span>
     </div>
   </footer>
 

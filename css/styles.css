@@ -1631,3 +1631,72 @@ p {
   font-size: 0.8125rem;
   color: rgba(244, 242, 236, 0.5);
 }
+
+/* ---------- Side project (Interests) ---------- */
+
+.hobby--project {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  overflow: hidden;
+}
+
+.project__text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project__text strong {
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.project__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project__stack li {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(244, 242, 236, 0.07);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* Phone-style frame around the screenshot, cropped at the card's bottom edge. */
+.project__shot {
+  display: block;
+  justify-self: center;
+  width: min(100%, 260px);
+  margin-bottom: calc(-1 * clamp(24px, 3vw, 40px) - 40px);
+  padding: 10px 10px 0;
+  border-radius: 34px 34px 0 0;
+  background: #1F1F24;
+  border: 1px solid rgba(244, 242, 236, 0.12);
+  border-bottom: 0;
+  transition: transform .6s var(--ease);
+}
+
+.project__shot img {
+  width: 100%;
+  height: auto;
+  border-radius: 26px 26px 0 0;
+}
+
+.project__shot:hover {
+  transform: translateY(-8px);
+}
+
+@media (max-width: 700px) {
+  .hobby--project {
+    grid-template-columns: 1fr;
+  }
+}

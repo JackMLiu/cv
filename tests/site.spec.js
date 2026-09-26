@@ -304,6 +304,15 @@ test.describe('capabilities, career and education', () => {
 });
 
 test.describe('off the clock', () => {
+  test('shows the vibe-coding side project with a link and a screenshot', async ({ page }) => {
+    await page.goto('./');
+    const card = page.locator('#off-the-clock .hobby').filter({ has: page.getByRole('heading', { name: 'Vibe coding' }) });
+    await expect(card).toContainText('Papernils');
+    await expect(card.getByRole('link', { name: /papernils\.com/i }).first()).toHaveAttribute('href', 'https://papernils.com');
+    await expect(card.getByRole('img', { name: /Papernils/ }).first()).toBeVisible();
+    await expect(page.locator('footer')).not.toContainText(/hand-built/i);
+  });
+
   test('mentions Muay Thai with the homecoming bout, and nothing off-message', async ({ page }) => {
     await page.goto('./');
     const off = page.locator('#off-the-clock');

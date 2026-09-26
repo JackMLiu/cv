@@ -21,4 +21,7 @@ for (let i = 1; i <= 4; i++) {
   await sharp(src(name)).rotate().resize(1400, 1400, { fit: 'inside', withoutEnlargement: true }).webp({ quality: 82 }).toFile(dest(`latte-${i}.webp`));
 }
 
+// Side project screenshots (phone-sized captures).
+await sharp(src('papernils-home.png')).resize(520).webp({ quality: 82 }).toFile(dest('papernils-home.webp'));
+
 console.log('Assets written to images/web/');
