@@ -1,0 +1,8 @@
+# Private planning docs: they name the sensitive items the site must never publish
+.scratch/
+docs/specs/
+node_modules/
+test-results/
+playwright-report/
+# Local-only list of sensitive terms the disclosure guard checks for
+tests/disclosure.local.json

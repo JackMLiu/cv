@@ -1,0 +1,18 @@
+{
+  "name": "jack-liu-cv",
+  "private": true,
+  "description": "Dev-only tooling for Jack Liu's static site. Nothing here is needed to serve the site.",
+  "type": "module",
+  "scripts": {
+    "serve": "node tools/serve.mjs",
+    "test": "playwright test",
+    "resume": "node tools/build-resume.mjs",
+    "assets": "node tools/build-assets.mjs",
+    "og": "node tools/build-og.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "pdfjs-dist": "^4.10.38",
+    "sharp": "^0.34.0"
+  }
+}

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jack Liu | Resume</title>
+  <meta name="robots" content="noindex">
+  <!-- Print source for Jack-Liu-Resume.pdf. Regenerate with: npm run resume -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0B0B0C;
+      --body: #2E2E33;
+      --grey: #75757B;
+      --rule: #D8D5CC;
+      --accent: #C6F432;
+    }
+
+    @page {
+      margin: 0.5in 0.55in;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #E9E7E1;
+    }
+
+    body {
+      max-width: 8.5in;
+      margin: 24px auto;
+      padding: 0.5in 0.55in;
+      background: #fff;
+      color: var(--body);
+      font: 9.4pt/1.42 'Inter Tight', system-ui, sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @media print {
+      html,
+      body {
+        background: #fff;
+      }
+
+      body {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    ul {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    h1 {
+      color: var(--ink);
+      font-size: 26pt;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    h1 small {
+      font-size: 12pt;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--grey);
+    }
+
+    .tagline {
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 11pt;
+      font-weight: 600;
+    }
+
+    .tagline em {
+      font-family: 'Instrument Serif', serif;
+      font-size: 13pt;
+      font-weight: 400;
+      background: linear-gradient(transparent 62%, var(--accent) 62%);
+    }
+
+    .contact {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.8pt;
+      line-height: 1.6;
+      color: var(--body);
+    }
+
+    section {
+      margin-top: 14px;
+    }
+
+    h2 {
+      margin-bottom: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.8pt;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .summary {
+      font-size: 9.8pt;
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .grid b,
+    .points b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .role {
+      margin-top: 10px;
+      break-inside: avoid;
+    }
+
+    .role__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule);
+    }
+
+    h3 {
+      color: var(--ink);
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    h3 span {
+      font-size: 9pt;
+      font-weight: 500;
+      color: var(--grey);
+    }
+
+    .when {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.8pt;
+      color: var(--grey);
+      white-space: nowrap;
+    }
+
+    .title {
+      margin-top: 1px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .points {
+      margin-top: 5px;
+      padding-left: 14px;
+    }
+
+    .points li {
+      margin-top: 2.5px;
+      padding-left: 2px;
+    }
+
+    .points li::marker {
+      content: "–  ";
+      color: var(--grey);
+    }
+
+    .edu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 22px;
+    }
+
+    .edu b {
+      display: block;
+      color: var(--ink);
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="head">
+    <div>
+      <h1>Jack Liu <small>MMA</small></h1>
+      <p class="tagline">FP&amp;A leader who builds <em>the machine</em></p>
+    </div>
+    <p class="contact">
+      <a href="mailto:jack.mu.liu@gmail.com">jack.mu.liu@gmail.com</a><br>
+      <a href="https://www.linkedin.com/in/jack-liu-5069b751/">linkedin.com/in/jack-liu-5069b751</a><br>
+      <a href="https://jackmliu.github.io/cv/">jackmliu.github.io/cv</a> · Toronto, ON
+    </p>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">FP&amp;A leader with 10+ years in budgeting, forecasting and financial reporting. I lead the corporate revenue forecast for a $4B product portfolio, driven by volume, price, and product and channel mix, and combine finance judgment with hands-on analytics: I build the model, the data pipeline and the executive story. Trusted advisor to executive leadership on scenarios, risks and opportunities, with a track record of modernizing FP&amp;A through automation, BI and machine learning.</p>
+  </section>
+
+  <section>
+    <h2>Core competencies</h2>
+    <ul class="grid">
+      <li><b>Planning &amp; budgeting:</b> annual budget, quarterly forecasts, multi-year plans, P&amp;L scenario modeling</li>
+      <li><b>Revenue analytics:</b> price/volume/mix variance, demand forecasting, risk and opportunity tracking</li>
+      <li><b>Business partnering:</b> executive reporting, variance commentary, Finance–Sales–Operations–IT alignment</li>
+      <li><b>AI/ML &amp; automation:</b> predictive and ML forecasting, ETL design, VBA and Power Platform automation</li>
+      <li><b>Systems &amp; tools:</b> Excel, Power BI (DAX, M, SVG/IBCS), SAP Analytics Cloud, SQL (Teradata), Python, R, AWS</li>
+      <li><b>Leadership:</b> team leadership, mentoring, change management, finance transformation</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+
+    <div class="role">
+      <div class="role__head">
+        <h3>Canada Post Corporation <span>· Toronto, ON</span></h3>
+        <span class="when">2022–Present</span>
+      </div>
+      <p class="title">Manager, Financial Data Analytics and Reporting</p>
+      <ul class="points">
+        <li><b>Corporate forecast:</b> Lead a forecasting team (three staff) and oversee forecasting across six staff. Deliver the corporate revenue forecast for a $4B portfolio across all products: quarterly forecasts, the annual budget and the multi-year plan.</li>
+        <li><b>Revenue drivers:</b> Break down results into volume, price and product and channel mix; explain variance to plan to executive leadership each month.</li>
+        <li><b>Scenarios &amp; risk:</b> Build revenue and P&amp;L scenarios with risk-and-opportunity views that inform executive decisions on pricing, sales strategy and customer analytics.</li>
+        <li><b>Reporting transformation:</b> Lead the move of forecasting and reporting to SAP Analytics Cloud and Power BI as the link between Finance and IT. Cut period-end analytics preparation from two staff over three days to one staff in two hours (over 95% less effort).</li>
+        <li><b>Advanced analytics:</b> Brought predictive and machine-learning models into the volume-demand forecast, blended with business judgment. The forecast miss is about 85% smaller.</li>
+        <li><b>Data &amp; tooling:</b> Built an IBCS-compliant SVG visual library in Power BI, replacing a paid third-party visuals licence and reducing vendor risk. Resolved a 10-year-old revenue logic gap and re-engineered ETL, saving 200+ hours a year.</li>
+        <li><b>Leadership:</b> Top performer at every year-end review. Selected by the General Manager to co-lead a quarterly forum for 200+ FP&amp;A professionals on the analytics and reporting roadmap.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <h3>Generali Global Health Services <span>· Markham, ON</span></h3>
+        <span class="when">2015–2022</span>
+      </div>
+      <p class="title">Manager, Financial Analysis (2020–2022) · Senior Financial Analyst (2017–2020) · Financial Analyst (2015–2017)</p>
+      <ul class="points">
+        <li><b>Planning &amp; reporting:</b> Owned the forecast and supported the annual budget for $100M in global operations; reported profitability and variance analysis to the CFO.</li>
+        <li><b>Process automation:</b> Automated financial planning models and built Power BI dashboards, cutting reporting cycle time by 40%.</li>
+        <li><b>Performance culture:</b> Built a “Daily Insights” dashboard for operational directors that moved the business to real-time, data-backed performance management; trained 50+ colleagues to self-serve.</li>
+        <li><b>Growth support:</b> Profitability and business-case analysis for expansion into new jurisdictions and client contracts. Reconciled the P&amp;L to surface over EUR 25M of unallocated costs during a business wind-down.</li>
+        <li><b>Controls &amp; audit:</b> Kept reporting in line with IFRS, GDPR and internal controls; worked with external auditors and funding partners.</li>
+        <li><b>Team development:</b> Promoted three times in seven years; mentored two financial analysts.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <h3>Banyan Work Health Solutions <span>· Mississauga, ON</span></h3>
+        <span class="when">2014–2015</span>
+      </div>
+      <p class="title">Metrics Administrator</p>
+      <ul class="points">
+        <li><b>KPI reporting:</b> Built the first consistent KPI scorecards for senior management, delivered quarterly with high data integrity.</li>
+        <li><b>Automation:</b> Automated high-volume reporting with VBA, doubling the team’s weekly output.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="edu">
+      <p><b>Master of Management Analytics (MMA)</b>Smith School of Business, Queen’s University</p>
+      <p><b>Bachelor of Economics, Finance Specialization</b>University of Waterloo</p>
+    </div>
+  </section>
+</body>
+
+</html>
