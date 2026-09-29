@@ -139,7 +139,7 @@ test.describe('resilience', () => {
     await scrollThrough(page);
     // Charts reset once off screen (ready to replay), so check each one while it is in view.
     const ids = await page.evaluate(() => [...document.querySelectorAll('[data-scene]')].map((s) => s.id));
-    expect(ids.length).toBe(3);
+    expect(ids.length).toBe(4);
     for (const id of ids) {
       await goToSection(page, id);
       await page.waitForTimeout(2500);
@@ -352,12 +352,35 @@ test.describe('contact', () => {
   });
 });
 
+test.describe('leadership', () => {
+  test('frames the executive story in three pillars', async ({ page }) => {
+    await page.goto('./');
+    const block = page.locator('#leadership');
+    await expect(block.getByRole('heading', { level: 3 })).toHaveText(['Transformation', 'Strategy', 'People and influence']);
+    await expect(block).toContainText(/subject-matter expert/i);
+    await expect(block).toContainText('ERP transformation');
+    await expect(block).toContainText(/10-year-old revenue logic gap/);
+    await expect(block).toContainText(/time-series and classification models/);
+    await expect(block).toContainText(/rolling forecast/);
+  });
+
+  test('the ERP transformation is the first case study', async ({ page }) => {
+    await page.goto('./');
+    const first = page.locator('[data-scene]').first();
+    await expect(first).toHaveAttribute('id', 'scene-erp');
+    await expect(first.getByRole('img', { name: /ERP transformation/i })).toBeVisible();
+    await expect(first).toContainText(/business requirements/i);
+  });
+});
+
 test.describe('hero', () => {
   test('makes the positioning claim with a way to act', async ({ page }) => {
     await page.goto('./');
     const hero = page.getByRole('banner');
-    await expect(hero.getByRole('heading', { level: 1 })).toHaveText(/FP&A &\s+Analytics\s+Leader/);
+    await expect(hero.getByRole('heading', { level: 1 })).toHaveText(/Finance &\s+Analytics\s+Leader/);
     await expect(hero).toContainText('$4B');
+    await expect(hero).toContainText('ERP transformation');
+    await expect(hero).toContainText(/data-driven/);
     await expect(hero).toContainText('Focus areas');
     await expect(hero).toContainText('Finance transformation');
     await expect(hero.getByRole('link', { name: /get in touch/i })).toHaveAttribute('href', 'mailto:jack.mu.liu@gmail.com');

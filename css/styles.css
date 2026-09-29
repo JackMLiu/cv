@@ -1700,3 +1700,108 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Leadership ---------- */
+
+.leadership {
+  padding-top: 96px;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 24px;
+  border-top: 2px solid var(--ink);
+}
+
+.pillar__num {
+  font-size: 0.8125rem;
+  color: var(--grey);
+}
+
+.pillar__title {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.pillar p {
+  color: #3C3C42;
+}
+
+@media (max-width: 860px) {
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- ERP transformation timeline ---------- */
+
+.erp__track {
+  fill: none;
+  stroke: var(--grey-light);
+  stroke-width: 3;
+  stroke-dasharray: 6 8;
+}
+
+.erp__progress {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.erp__step circle {
+  fill: var(--ink);
+  stroke: #FBFAF6;
+  stroke-width: 3;
+}
+
+.erp__step--key circle {
+  fill: var(--accent);
+  stroke: var(--ink);
+}
+
+.erp__name {
+  fill: var(--ink);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.erp__detail {
+  fill: var(--grey);
+  font-size: 19px;
+}
+
+.erp__callout {
+  fill: var(--ink);
+}
+
+.erp__callout-text {
+  fill: var(--accent);
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.erp__pointer {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.legend__swatch--key {
+  height: 10px;
+  background: var(--accent);
+  border: 1px solid var(--ink);
+}

@@ -20,7 +20,7 @@ const card = `<!DOCTYPE html><html><head>
 </style></head><body>
 <div class="glow"></div>
 <svg viewBox="0 0 1200 220" preserveAspectRatio="none"><path d="M0 190 C 200 170, 320 110, 480 140 S 760 60, 900 80 S 1100 20, 1200 10" fill="none" stroke="#C6F432" stroke-width="4" opacity=".7"/></svg>
-<div class="inner"><div class="eyebrow">Jack Liu, MMA · Toronto</div><h1>FP&amp;A &amp;<br>Analytics<br><em>Leader</em></h1></div>
+<div class="inner"><div class="eyebrow">Jack Liu, MMA · Toronto</div><h1>Finance &amp;<br>Analytics<br><em>Leader</em></h1></div>
 <div class="stat">$4B<span>product portfolio forecast</span></div>
 </body></html>`;
 

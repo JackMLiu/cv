@@ -21,6 +21,7 @@
 
   initSmoothScroll();
   initMachine();
+  initErpScene();
   initForecastScene();
   initReportingScene();
   initDriversScene();
@@ -74,6 +75,29 @@
         values[i].style.opacity = gsap.utils.clamp(0, 1, (barProgress - 0.5) * 2);
         if (connectors[i - 1]) connectors[i - 1].style.opacity = barProgress > 0 ? 1 : 0;
       });
+    });
+  }
+
+  // The progress line draws along the timeline; each milestone appears as the line reaches it.
+  function initErpScene() {
+    var section = document.querySelector('[data-scene="erp"]');
+    if (!section) return;
+    var line = section.querySelector('[data-erp-progress]');
+    var x0 = parseFloat(line.getAttribute('data-x0')), x1 = parseFloat(line.getAttribute('data-x1'));
+    var y = line.getAttribute('d').split(' ')[1];
+    var milestones = gsap.utils.toArray('[data-milestone]', section);
+    var counters = section.querySelectorAll('[data-scene-text][data-count]');
+    var ease = gsap.parseEase('power2.inOut');
+
+    scene(section, function (progress) {
+      var eased = ease(progress);
+      var x = x0 + (x1 - x0) * eased;
+      line.setAttribute('d', 'M' + x0 + ' ' + y + ' L' + x.toFixed(1) + ' ' + y);
+      milestones.forEach(function (m) {
+        var at = parseFloat(m.getAttribute('data-at'));
+        m.style.opacity = gsap.utils.clamp(0, 1, (x - at + 30) / 60);
+      });
+      counters.forEach(function (el) { el.textContent = countText(el, eased); });
     });
   }
 
